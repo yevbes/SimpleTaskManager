@@ -30,7 +30,7 @@ public class TaskController {
     }
 
     @ApiOperation(value = "Create task", notes = "Return a task values" )
-    @RequestMapping("/create")
+    @RequestMapping(method = RequestMethod.POST, value = "/create")
     public String create(
             @RequestParam String title,
             @RequestParam String description,
@@ -41,37 +41,37 @@ public class TaskController {
     }
 
     @ApiOperation(value = "Get task by ID", notes = "Return a task" )
-    @RequestMapping("/get")
+    @RequestMapping(method = RequestMethod.GET ,value = "/get")
     public Task getTask(@RequestParam String id) {
         return taskService.getById(id);
     }
 
     @ApiOperation(value = "Get all tasks", notes = "Return all tasks" )
-    @RequestMapping("/getAll")
+    @RequestMapping(method = RequestMethod.GET ,value = "/getAll")
     public List<Task> getAll() {
         return taskService.getAll();
     }
 
     @ApiOperation(value = "Get all created tasks", notes = "Return all created tasks" )
-    @RequestMapping("/getCreatedTasks")
+    @RequestMapping(method = RequestMethod.GET ,value = "/getCreatedTasks")
     public List<Task> getCreatedTasks() {
         return taskService.getCreatedTasks();
     }
 
     @ApiOperation(value = "Get all doing tasks", notes = "Return all doing tasks" )
-    @RequestMapping("/getDoingTasks")
+    @RequestMapping(method = RequestMethod.GET ,value = "/getDoingTasks")
     public List<Task> getDoingTasks() {
         return taskService.getDoingTasks();
     }
 
     @ApiOperation(value = "Get all finished tasks", notes = "Return all finished tasks" )
-    @RequestMapping("/getFinishedTasks")
+    @RequestMapping(method = RequestMethod.GET ,value = "/getFinishedTasks")
     public List<Task> getFinishedTasks() {
         return taskService.getFinishedTasks();
     }
 
     @ApiOperation(value = "Update task", notes = "Return values of updated task" )
-    @RequestMapping("/update")
+    @RequestMapping(method = RequestMethod.PUT ,value = "/update")
     public String update(@RequestParam String title,
                          @RequestParam String description,
                          @RequestParam int color,
@@ -81,35 +81,35 @@ public class TaskController {
     }
 
     @ApiOperation(value = "Update task to created", notes = "Return values of updated task" )
-    @RequestMapping("/updateToCreated")
+    @RequestMapping(method = RequestMethod.PUT ,value = "/updateToCreated")
     public String updateToCreated(@RequestParam String id){
         Task task = taskService.updateToCreated(id);
         return task.toString();
     }
 
     @ApiOperation(value = "Update task to doing", notes = "Return values of updated task" )
-    @RequestMapping("/updateToDoing")
+    @RequestMapping(method = RequestMethod.PUT ,value = "/updateToDoing")
     public String updateToDoing(@RequestParam String id){
         Task task = taskService.updateToDoing(id);
         return task.toString();
     }
 
     @ApiOperation(value = "Update task to finished", notes = "Return values of updated task" )
-    @RequestMapping("/updateToFinished")
+    @RequestMapping(method = RequestMethod.PUT ,value = "/updateToFinished")
     public String updateToFinished(@RequestParam String id){
         Task task = taskService.updateToFinished(id);
         return task.toString();
     }
 
     @ApiOperation(value = "Delete task by ID", notes = "Delete task" )
-    @RequestMapping("/delete")
+    @RequestMapping(method = RequestMethod.DELETE ,value = "/delete")
     public String delete(@RequestParam String id){
         taskService.delete(id);
         return "Task deleted";
     }
 
     @ApiOperation(value = "Delete all tasks", notes = "Delete tasks" )
-    @RequestMapping("/deleteAll")
+    @RequestMapping(method = RequestMethod.DELETE ,value = "/deleteAll")
     public String deleteAll(){
         taskService.deleteAll();
         return "All tasks was deleted";
