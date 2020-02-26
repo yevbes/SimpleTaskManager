@@ -41,6 +41,7 @@ public class TaskService {
 
     /**
      * Get task by id
+     *
      * @param id Task id
      * @return Task if exists
      */
@@ -49,7 +50,7 @@ public class TaskService {
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isPresent())
             task = optionalTask.get();
-        return Objects.requireNonNull(task);
+        return task;
     }
 
 
@@ -101,7 +102,7 @@ public class TaskService {
             task.setDescription(description);
             task.setColor(color);
         }
-        return taskRepository.save(Objects.requireNonNull(task));
+        return taskRepository.save(task);
     }
 
     /**
@@ -117,7 +118,7 @@ public class TaskService {
             task = optionalTask.get();
             task.setTaskToCreated();
         }
-        return taskRepository.save(Objects.requireNonNull(task));
+        return taskRepository.save(task);
     }
 
     /**
@@ -133,7 +134,7 @@ public class TaskService {
             task = optionalTask.get();
             task.setTaskToDoing();
         }
-        return taskRepository.save(Objects.requireNonNull(task));
+        return taskRepository.save(task);
     }
 
     /**
@@ -149,7 +150,7 @@ public class TaskService {
             task = optionalTask.get();
             task.setTaskToFinished();
         }
-        return taskRepository.save(Objects.requireNonNull(task));
+        return taskRepository.save(task);
     }
 
     /**
@@ -159,13 +160,14 @@ public class TaskService {
         taskRepository.deleteAll();
     }
 
-    public void delete(String id) {
+    public Task delete(String id) {
         Task task = null;
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isPresent()) {
             task = optionalTask.get();
         }
-        taskRepository.delete(Objects.requireNonNull(task));
+        taskRepository.delete(task);
+        return task;
     }
 
 }

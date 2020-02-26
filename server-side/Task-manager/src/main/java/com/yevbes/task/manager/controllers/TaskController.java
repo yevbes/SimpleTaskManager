@@ -1,5 +1,8 @@
 package com.yevbes.task.manager.controllers;
 
+import com.yevbes.task.manager.exceptions.TaskListIsEmptyException;
+import com.yevbes.task.manager.exceptions.TaskNotFoundException;
+import com.yevbes.task.manager.exceptions.TaskUpdateException;
 import com.yevbes.task.manager.models.Task;
 import com.yevbes.task.manager.services.TaskService;
 import io.swagger.annotations.ApiOperation;
@@ -43,31 +46,46 @@ public class TaskController {
     @ApiOperation(value = "Get task by ID", notes = "Return a task" )
     @RequestMapping(method = RequestMethod.GET ,value = "/get")
     public Task getTask(@RequestParam String id) {
-        return taskService.getById(id);
+        Task task = taskService.getById(id);
+        if (task == null)
+            throw new TaskNotFoundException(id);
+        return task;
     }
 
     @ApiOperation(value = "Get all tasks", notes = "Return all tasks" )
     @RequestMapping(method = RequestMethod.GET ,value = "/getAll")
     public List<Task> getAll() {
-        return taskService.getAll();
+        List<Task> tasks = taskService.getAll();
+        if (tasks.isEmpty())
+            throw new TaskListIsEmptyException("tasks");
+        return tasks;
     }
 
     @ApiOperation(value = "Get all created tasks", notes = "Return all created tasks" )
     @RequestMapping(method = RequestMethod.GET ,value = "/getCreatedTasks")
     public List<Task> getCreatedTasks() {
-        return taskService.getCreatedTasks();
+        List<Task> tasks = taskService.getCreatedTasks();
+        if (tasks.isEmpty())
+            throw new TaskListIsEmptyException("created tasks");
+        return tasks;
     }
 
     @ApiOperation(value = "Get all doing tasks", notes = "Return all doing tasks" )
     @RequestMapping(method = RequestMethod.GET ,value = "/getDoingTasks")
     public List<Task> getDoingTasks() {
-        return taskService.getDoingTasks();
+        List<Task> tasks = taskService.getDoingTasks();
+        if (tasks.isEmpty())
+            throw new TaskListIsEmptyException("doing tasks");
+        return tasks;
     }
 
     @ApiOperation(value = "Get all finished tasks", notes = "Return all finished tasks" )
     @RequestMapping(method = RequestMethod.GET ,value = "/getFinishedTasks")
     public List<Task> getFinishedTasks() {
-        return taskService.getFinishedTasks();
+        List<Task> tasks = taskService.getFinishedTasks();
+        if (tasks.isEmpty())
+            throw new TaskListIsEmptyException("finished tasks");
+        return tasks;
     }
 
     @ApiOperation(value = "Update task", notes = "Return values of updated task" )
@@ -77,6 +95,8 @@ public class TaskController {
                          @RequestParam int color,
                          @RequestParam String id){
         Task task = taskService.update(title, description, color, id);
+        if (task == null)
+            throw new TaskUpdateException(id);
         return task.toString();
     }
 
@@ -84,6 +104,8 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.PUT ,value = "/updateToCreated")
     public String updateToCreated(@RequestParam String id){
         Task task = taskService.updateToCreated(id);
+        if (task == null)
+            throw new TaskUpdateException(id);
         return task.toString();
     }
 
@@ -91,6 +113,8 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.PUT ,value = "/updateToDoing")
     public String updateToDoing(@RequestParam String id){
         Task task = taskService.updateToDoing(id);
+        if (task == null)
+            throw new TaskUpdateException(id);
         return task.toString();
     }
 
@@ -98,13 +122,17 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.PUT ,value = "/updateToFinished")
     public String updateToFinished(@RequestParam String id){
         Task task = taskService.updateToFinished(id);
+        if (task == null)
+            throw new TaskUpdateException(id);
         return task.toString();
     }
 
     @ApiOperation(value = "Delete task by ID", notes = "Delete task" )
     @RequestMapping(method = RequestMethod.DELETE ,value = "/delete")
     public String delete(@RequestParam String id){
-        taskService.delete(id);
+        Task task = taskService.delete(id);
+        if (task == null)
+            throw new TaskUpdateException(id);
         return "Task deleted";
     }
 
