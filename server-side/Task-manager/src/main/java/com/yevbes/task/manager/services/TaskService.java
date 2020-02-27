@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -102,7 +101,9 @@ public class TaskService {
             task.setDescription(description);
             task.setColor(color);
         }
-        return taskRepository.save(task);
+        if (task != null)
+            return taskRepository.save(task);
+        return null;
     }
 
     /**
@@ -118,7 +119,9 @@ public class TaskService {
             task = optionalTask.get();
             task.setTaskToCreated();
         }
-        return taskRepository.save(task);
+        if (task != null)
+            return taskRepository.save(task);
+        return null;
     }
 
     /**
@@ -134,7 +137,9 @@ public class TaskService {
             task = optionalTask.get();
             task.setTaskToDoing();
         }
-        return taskRepository.save(task);
+        if (task != null)
+            return taskRepository.save(task);
+        return null;
     }
 
     /**
@@ -150,7 +155,9 @@ public class TaskService {
             task = optionalTask.get();
             task.setTaskToFinished();
         }
-        return taskRepository.save(task);
+        if (task != null)
+            return taskRepository.save(task);
+        return null;
     }
 
     /**
@@ -160,13 +167,19 @@ public class TaskService {
         taskRepository.deleteAll();
     }
 
+    /**
+     * Delete task by id
+     * @param id Task
+     * @return Deleted task or null
+     */
     public Task delete(String id) {
         Task task = null;
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isPresent()) {
             task = optionalTask.get();
         }
-        taskRepository.delete(task);
+        if (task != null)
+            taskRepository.delete(task);
         return task;
     }
 
