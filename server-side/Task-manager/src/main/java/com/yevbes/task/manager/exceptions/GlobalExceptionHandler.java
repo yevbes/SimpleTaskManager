@@ -34,8 +34,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         response.sendError(HttpStatus.OK.value());
     }
 
-
-
     /**
      * JSR 303 Validation error
      * For Validating Path Variables and Request Parameters
