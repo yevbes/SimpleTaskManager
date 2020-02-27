@@ -169,6 +169,7 @@ public class TaskService {
 
     /**
      * Delete task by id
+     *
      * @param id Task
      * @return Deleted task or null
      */
