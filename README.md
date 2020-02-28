@@ -7,4 +7,4 @@ Simple client-server app with Spring Boot, Swagger, JWT, Angular
 4. Control de excepciones ✔
 5. Testing (Service layer) ✔
 6. Web interface (front end Angular)
-7. Upload to Docker
+7. Upload to Docker -> http://134.209.87.235:8080/ ✔
