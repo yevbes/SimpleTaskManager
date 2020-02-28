@@ -12,21 +12,11 @@ import java.util.Map;
 @Component
 public class ErrorAttributes extends DefaultErrorAttributes {
 
-    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
 
         // Let Spring handle the error first
         Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, includeStackTrace);
-
-        // Format and update timestamp
-        Object timestamp = errorAttributes.get("timestamp");
-        if (timestamp == null) {
-            errorAttributes.put("timestamp", dateFormat.format(new Date()));
-        } else {
-            errorAttributes.put("timestamp", dateFormat.format((Date) timestamp));
-        }
 
         // Remove trace
         errorAttributes.remove("trace");

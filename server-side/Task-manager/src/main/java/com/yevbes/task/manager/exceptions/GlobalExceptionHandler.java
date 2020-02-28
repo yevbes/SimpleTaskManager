@@ -37,6 +37,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * JSR 303 Validation error
      * For Validating Path Variables and Request Parameters
+     *
      * @param response Response
      * @throws IOException Exception
      */

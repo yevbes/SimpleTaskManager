@@ -30,7 +30,6 @@ public class SwaggerConfig {
     }
 
 
-
     private ApiInfo usersApiInfo() {
         return new ApiInfoBuilder()
                 .title("Task Manager")
