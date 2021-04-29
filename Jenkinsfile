@@ -13,7 +13,7 @@ pipeline {
         stage('test') {
             steps {
                 echo 'Testing..'
-                sh 'mvn test'
+                sh 'mvn -f ./server-side/Task-manager/pom.xml test'
             }
         }
     }
