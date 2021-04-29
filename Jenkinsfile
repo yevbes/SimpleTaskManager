@@ -1,13 +1,14 @@
 pipeline {
     agent any
-
+     tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
     stages {
         stage('build') {
             steps {
                 echo 'Building..'
-                maven('Maven') {
-                    sh 'mvn clean & mvn build'
-                }
+                sh 'mvn clean & mvn build'
             }
         }
     }
