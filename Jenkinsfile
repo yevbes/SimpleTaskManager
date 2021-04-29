@@ -10,5 +10,11 @@ pipeline {
                 sh 'mvn -f ./server-side/Task-manager/pom.xml install'
             }
         }
+        stage('test') {
+            steps {
+                echo 'Testing..'
+                sh 'mvn test'
+            }
+        }
     }
 }
